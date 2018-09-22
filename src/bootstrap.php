@@ -13,11 +13,11 @@ $app = new \Slim\App($settings);
 // Set up dependencies
 require ROOT_DIR . '/src/dependencies.php';
 
-// Register middleware
-require ROOT_DIR . '/src/middleware.php';
-
 // Register routes
 require ROOT_DIR . '/src/routes.php';
+
+// Register middleware
+require ROOT_DIR . '/src/middleware.php';
 
 // Run app
 $app->run();
