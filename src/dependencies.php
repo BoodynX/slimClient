@@ -1,19 +1,31 @@
 <?php
-// DIC configuration
+
+use GuzzleHttp\Client;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Processor\UidProcessor;
+use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
 
 $container = $app->getContainer();
 
 // view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+$container['view'] = function ($container) {
+    $settings = $container->get('settings')['renderer'];
+    $view = new Twig($settings['template_path'], [
+        'cache' => $settings['cache_path']
+    ]);
+    $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
+    $view->addExtension(new TwigExtension($container->get('router'), $basePath));
+
+    return $view;
 };
 
 // monolog
-$container['logger'] = function ($c) {
-    $settings = $c->get('settings')['logger'];
-    $logger = new Monolog\Logger($settings['name']);
-    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+$container['logger'] = function ($container) {
+    $settings = $container->get('settings')['logger'];
+    $logger = new Logger($settings['name']);
+    $logger->pushProcessor(new UidProcessor());
+    $logger->pushHandler(new StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
