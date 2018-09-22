@@ -6,13 +6,14 @@ return [
 
         // Renderer settings
         'renderer' => [
-            'template_path' => __DIR__ . '/../templates/',
+            'template_path' => ROOT_DIR . '/templates/',
+            'cache_path' => false //ROOT_DIR . '/cache/template',
         ],
 
         // Monolog settings
         'logger' => [
             'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
+            'path' => isset($_ENV['docker']) ? 'php://stdout' : ROOT_DIR . '/logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
     ],
