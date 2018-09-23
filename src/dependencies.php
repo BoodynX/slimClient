@@ -29,3 +29,20 @@ $container['logger'] = function ($container) {
     $logger->pushHandler(new StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// HTTP client
+$container['httpClient'] = function () {
+    $httpClient = new Client();
+    return $httpClient;
+};
+
+// Controllers
+$container['\App\Presentation\Controllers\HomeController'] = function ($container) {
+    $view = $container->get('view');
+    return new \App\Presentation\Controllers\HomeController($view);
+};
+
+$container['\App\Presentation\Controllers\UsersController'] = function ($container) {
+    $httpClient = $container->get('httpClient');
+    return new \App\Presentation\Controllers\UsersController($httpClient);
+};
