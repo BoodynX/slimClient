@@ -1,0 +1,26 @@
+{% extends 'Layout.html.twig' %}
+{% block content %}
+    <ol>
+        {% for user in users %}
+            <li>
+                {{ user.id }} - {{ user.first_name }} {{ user.last_name }}
+            </li>
+        {% endfor %}
+    </ol>
+    {% verbatim %}
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+
+
+    </script>
+    {% endverbatim %}
+{% endblock %}

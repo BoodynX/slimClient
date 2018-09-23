@@ -6,8 +6,8 @@ return [
 
         // Renderer settings
         'renderer' => [
-            'template_path' => ROOT_DIR . '/templates/',
-            'cache_path' => false //ROOT_DIR . '/cache/template',
+            'template_path' => ROOT_DIR . '/frontend/templates/',
+            'cache_path' => false,
         ],
 
         // Monolog settings
