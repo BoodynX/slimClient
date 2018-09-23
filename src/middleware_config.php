@@ -1,7 +1,7 @@
 <?php
 
 use Respect\Validation\Validator as v;
-use App\Presentation\Middleware\AfterValidation;
+use App\Presentation\Middleware\ValidationErrorsReport;
 use DavidePastore\Slim\Validation\Validation;
 
 return [
@@ -10,7 +10,7 @@ return [
     ],
     'routes' => [
         'users' => [
-            new AfterValidation,
+            new ValidationErrorsReport,
             new Validation([
                 'page' => v::notOptional()->numeric()->positive(),
                 'per_page' => v::notOptional()->numeric()->positive(),
