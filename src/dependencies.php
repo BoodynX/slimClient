@@ -1,5 +1,8 @@
 <?php
 
+use App\Infrastructure\GuzzleUsersList;
+use App\Presentation\Controllers\HomeController;
+use App\Presentation\Controllers\UsersController;
 use GuzzleHttp\Client;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -36,13 +39,22 @@ $container['httpClient'] = function () {
     return $httpClient;
 };
 
-// Controllers
-$container['\App\Presentation\Controllers\HomeController'] = function ($container) {
-    $view = $container->get('view');
-    return new \App\Presentation\Controllers\HomeController($view);
+$container['UsersList'] = function ($container) {
+    return new GuzzleUsersList(
+        $container->get('httpClient'),
+        $container->get('settings')['apiAddress']
+    );
 };
 
-$container['\App\Presentation\Controllers\UsersController'] = function ($container) {
-    $httpClient = $container->get('httpClient');
-    return new \App\Presentation\Controllers\UsersController($httpClient);
+///////////////////////////////////////////////////////////////////////
+// Controllers
+///////////////////////////////////////////////////////////////////////
+
+$container[HomeController::class] = function ($container) {
+    $view = $container->get('view');
+    return new HomeController($view);
+};
+
+$container[UsersController::class] = function ($container) {
+    return new UsersController($container->get('UsersList'));
 };

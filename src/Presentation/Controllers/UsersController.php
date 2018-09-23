@@ -2,6 +2,8 @@
 
 namespace App\Presentation\Controllers;
 
+use App\Application\UserList;
+use App\Application\UsersListParams;
 use GuzzleHttp\Client;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -9,24 +11,18 @@ use Slim\Http\Response;
 class UsersController
 {
     /** @var Client */
-    protected $httpClient;
+    protected $usersList;
 
-    public function __construct(Client $httpClient)
+    public function __construct(UserList $usersList)
     {
-        $this->httpClient = $httpClient;
+        $this->usersList = $usersList;
     }
 
     public function index(Request $request, Response $response, array $args): Response
     {
         $param = $request->getParams();
-        $reqresResponse = $this->httpClient->request(
-            'GET',
-            'https://reqres.in/api/users?per_page='.$param['per_page'].'&page='.$param['page']
-        );
-        $reqresData = json_decode($reqresResponse->getBody()->getContents(), true);
-        $jsonData = [
-            'users' => $reqresData['data']
-        ];
+        $usersListParams = new UsersListParams($param['per_page'], $param['page']);
+        $jsonData = $this->usersList->fetch($usersListParams);
 
         return $response->withJson($jsonData);
     }

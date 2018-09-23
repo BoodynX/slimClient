@@ -16,5 +16,7 @@ return [
             'path' => isset($_ENV['docker']) ? 'php://stdout' : ROOT_DIR . '/logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
+
+        'apiAddress' => 'https://reqres.in/api/',
     ],
 ];

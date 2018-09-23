@@ -1,5 +1,7 @@
 <?php
 
+use App\Presentation\Controllers\HomeController;
+use App\Presentation\Controllers\UsersController;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -9,11 +11,11 @@ $app->get('/test/[{name}]', function (Request $request, Response $response, arra
     return $this->view->render($response, 'index.phtml', $args);
 });
 
-$app->get('/', '\App\Presentation\Controllers\HomeController:home')
+$app->get('/', HomeController::class.':home')
     ->setName('home');
 
 // API
-$app->get('/api/users', '\App\Presentation\Controllers\UsersController:index')
+$app->get('/api/users', UsersController::class.':index')
     ->setName('users');
 
 
