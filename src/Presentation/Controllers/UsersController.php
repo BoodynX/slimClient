@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Controllers;
 
-use App\Application\UserList;
+use App\Application\UsersList;
 use App\Application\UsersListParams;
 use App\Presentation\Presenters\UsersList as UsersListPresenter;
 use GuzzleHttp\Client;
@@ -17,7 +17,7 @@ class UsersController
     /** @var UsersListPresenter */
     private $usersListPresenter;
 
-    public function __construct(UserList $usersList, UsersListPresenter $UsersListPresenter)
+    public function __construct(UsersList $usersList, UsersListPresenter $UsersListPresenter)
     {
         $this->usersList = $usersList;
         $this->usersListPresenter = $UsersListPresenter;

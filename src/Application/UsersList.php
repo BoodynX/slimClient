@@ -2,7 +2,7 @@
 
 namespace App\Application;
 
-interface UserList
+interface UsersList
 {
     public function fetch(UsersListParams $listParams): array;
 }

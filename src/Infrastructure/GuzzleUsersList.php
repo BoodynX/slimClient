@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure;
 
-use App\Application\UserList;
+use App\Application\UsersList;
 use App\Application\UsersListParams;
 use GuzzleHttp\Client;
 
-class GuzzleUsersList implements UserList
+class GuzzleUsersList implements UsersList
 {
     /** @var Client */
     private $client;
