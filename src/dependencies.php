@@ -3,6 +3,7 @@
 use App\Infrastructure\GuzzleUsersList;
 use App\Presentation\Controllers\HomeController;
 use App\Presentation\Controllers\UsersController;
+use App\Presentation\Presenters\UsersList as UsersListPresenter;
 use GuzzleHttp\Client;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -56,5 +57,8 @@ $container[HomeController::class] = function ($container) {
 };
 
 $container[UsersController::class] = function ($container) {
-    return new UsersController($container->get('UsersList'));
+    return new UsersController(
+        $container->get('UsersList'),
+        new UsersListPresenter
+    );
 };
