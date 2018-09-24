@@ -1,26 +1,44 @@
 {% extends 'Layout.html.twig' %}
 {% block content %}
-    <ol>
-        {% for user in users %}
-            <li>
-                {{ user.id }} - {{ user.first_name }} {{ user.last_name }}
-            </li>
-        {% endfor %}
-    </ol>
     {% verbatim %}
     <div id="app">
-        {{ message }}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">Reqres Users</h1>
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-8">
+                        <div :class="usersListClasses">
+                            <div class="tile is-parent is-3" v-for="user in users">
+                                <article class="tile is-child notification is-primary">
+                                <p class="title">{{ user.first_name }}</p>
+                                <p class="subtitle">{{ user.last_name }}</p>
+                                <figure class="image is-4by4">
+                                    <img :src="user.avatar">
+                                </figure>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <nav class="pagination is-right" role="navigation" aria-label="pagination">
+                    <a class="pagination-previous" @click="prevPage" :disabled="this.page == 1">Previous</a>
+                    <a class="pagination-next" @click="nextPage" :disabled="this.page === this.totalPages">Next page</a>
+                    <ul class="pagination-list">
+                        <li v-for="n in totalPages">
+                            <a  :class="[ isCurrentPage(n)? isCurrentClass : '', paginationLinkClass]"
+                                @click="goToPage(n)">
+                                {{ n }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
     </div>
-
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                message: 'Hello Vue!'
-            }
-        })
-
-
-    </script>
+    <script src="/js/main.js"></script>
     {% endverbatim %}
 {% endblock %}

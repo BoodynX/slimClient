@@ -8,11 +8,13 @@ class UsersList
     {
         return [
             'users' => $list['data'],
-            'metadata' => [
-                array_filter($list, function ($key) {
+            'metadata' => array_filter(
+                $list,
+                function ($key) {
                     return $key !== 'data';
-                }, ARRAY_FILTER_USE_KEY)
-            ]
+                },
+                ARRAY_FILTER_USE_KEY
+            )
         ];
     }
 }

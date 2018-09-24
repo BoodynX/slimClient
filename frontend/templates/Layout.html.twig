@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" href="css/main.css" type="text/css">
 <head>
     <meta charset="UTF-8">
     <title>slimClient</title>
 </head>
 
 <body>
-<h1>slimClient</h1>
-{% block content %}{% endblock %}
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                slimClient
+            </h1>
+            <h2 class="subtitle">
+                Test project made by me :)
+            </h2>
+        </div>
+    </div>
+</section>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>
