@@ -22,15 +22,6 @@ class HomeController
         Response $response
     ): ResponseInterface {
 
-        $viewData = [
-            'users' => [
-                [
-                    'id' => 1,
-                    'first_name' => 'Tom',
-                    'last_name' => 'Boodyn'
-                ],
-            ]
-        ];
-        return $this->view->render($response, 'Home.html.twig', $viewData);
+        return $this->view->render($response, 'Home.html.twig');
     }
 }
