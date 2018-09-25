@@ -1,10 +1,14 @@
+const FIRST_PAGE = 1;
+const USERS_PER_PAGE = 5;
+const TOTAL_PAGES_ON_LOAD = 1;
+
 var app = new Vue({
     el: '#app',
     data: {
         users: [],
-        page: 1,
-        perPage: 4,
-        totalPages: 1,
+        page: FIRST_PAGE,
+        perPage: USERS_PER_PAGE,
+        totalPages: TOTAL_PAGES_ON_LOAD,
         usersListClasses: 'tile',
         paginationLinkClass: 'pagination-link',
         isCurrentClass: 'is-current'
@@ -20,7 +24,7 @@ var app = new Vue({
             }
         },
         prevPage() {
-            if (this.page > 1) {
+            if (this.page > FIRST_PAGE) {
                 this.page--;
                 this.fetchUsers();
             }
